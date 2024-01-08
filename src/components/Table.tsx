@@ -27,7 +27,7 @@ const Table: React.FC<TableProps> = ({ records, editRecord }) => {
                         <td>{record.published_date}</td>
                         <td>{record.created_date}</td>
                         <td>{record.update_date}</td>
-                        <td><button onClick={() => { editRecord(index); navigate('/edit') }}>Edit</button></td>
+                        <td><button data-testid={'Edit'} onClick={() => { editRecord(index); navigate('/edit') }}>Edit</button></td>
                     </tr>
                 ))}
             </tbody>

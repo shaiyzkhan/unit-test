@@ -1,12 +1,8 @@
 import '@testing-library/jest-dom';
 import EditForm from './EditForm';
-import { ToastProvider } from 'react-toast-notifications';
-import { render, act, screen, waitFor } from '@testing-library/react';
+import { render, act, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
-
-const mockUpdateRecord = jest.fn();
 
 const record = {
   title: 'Book 1',
@@ -16,14 +12,11 @@ const record = {
   update_date: '',
 };
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn(),
-}));
-
-
-
+const mockUpdateRecord = jest.fn();
 const mockAddToast = jest.fn()
 const mockNavigate = jest.fn()
+
+
 
 jest.mock('react-toast-notifications', () => {
   return {
@@ -51,8 +44,6 @@ describe('Interface Tests', () => {
     expect(getByTestId(/published_date/i)).toHaveValue('2022-01-01');
   });
 });
-
-
 
 describe('EditForm Interaction Tests', () => {
   test('Submits form with correct values ', async () => {

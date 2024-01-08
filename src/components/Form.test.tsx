@@ -2,7 +2,6 @@ import { render, act, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Form from './Form';
 import userEvent from '@testing-library/user-event';
-import { ToastProvider } from 'react-toast-notifications';
 const mockAddRecord = jest.fn();
 const mockAddToast = jest.fn()
 const mockNavigate = jest.fn()
@@ -46,7 +45,7 @@ describe('Interaction Tests', () => {
     const testData = {
       title: 'Book 3',
       author: 'Author 3',
-      pd: '2022-03-01'
+      published_date: '2022-03-01'
     };
     const mockAddRecord = jest.fn();
     const { getByTestId } =
@@ -66,23 +65,24 @@ describe('Interaction Tests', () => {
     await userEvent.clear(pdInput)
 
 
-    await act(() => {
-      userEvent.type(titleInput, testData.title);
-      userEvent.type(authorInput, testData.author);
-      userEvent.type(pdInput, testData.pd);
+    await act(async() => {
+     await userEvent.type(titleInput, testData.title);
+     await userEvent.type(authorInput, testData.author);
+     await userEvent.type(pdInput, testData.published_date);
     });
 
     expect(getByTestId('title')).toHaveValue(testData.title);
     expect(getByTestId('author')).toHaveValue(testData.author);
-    expect(getByTestId('published_date')).toHaveValue(testData.pd);
+    expect(getByTestId('published_date')).toHaveValue(testData.published_date);
 
     await act(async () => {
       userEvent.click(submitButton);
     });
+    await waitFor(() => {
     expect(mockAddRecord).toHaveBeenCalledWith({
       ...testData
     });
-
+  });
 
   });
 });

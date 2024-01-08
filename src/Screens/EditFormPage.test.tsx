@@ -3,7 +3,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { ToastProvider } from 'react-toast-notifications';
 import { render, act, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
 
 const mockUpdateRecord = jest.fn();
 
@@ -19,7 +18,9 @@ describe('EditFormPage', () => {
     test('It renders correctly', () => {
         const screen = render(
             <BrowserRouter>
-                <EditFormPage record={record} updateRecord={mockUpdateRecord} success={false} />
+                <ToastProvider>
+                    <EditFormPage record={record} updateRecord={mockUpdateRecord} success={false} />
+                </ToastProvider>
             </BrowserRouter>
         );
         expect(screen.baseElement).toBeTruthy();
