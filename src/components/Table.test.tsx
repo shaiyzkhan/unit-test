@@ -1,6 +1,7 @@
-import { render, act, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Table from './Table';
+import { render, act, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
 const records = [
@@ -33,16 +34,22 @@ describe('Interface Tests', () => {
 });
 
 describe('Modularity Tests', () => {
-  test('Naivgates on edit click', async () => {
+  test('Selects the right index on edit click', async () => {
     const { getByTestId } = render(<Table records={records} editRecord={mockEditRecord} />);
-
-    const submitButton = getByTestId('Edit')
+    const submitButton1 = getByTestId('Edit-0')
     await act(async () => {
-      await userEvent.click(submitButton);
+      await userEvent.click(submitButton1);
     });
     await waitFor(() => {
-      return expect(mockNavigate).toHaveBeenCalledWith('/edit')
-    })
+      return expect(mockEditRecord).toHaveBeenCalledWith(0)
+    });
+    const submitButton2 = getByTestId('Edit-1')
+    await act(async () => {
+      await userEvent.click(submitButton2);
+    });
+    await waitFor(() => {
+      return expect(mockEditRecord).toHaveBeenCalledWith(1)
+    });
   });
 });
 
