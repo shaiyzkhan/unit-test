@@ -35,7 +35,6 @@ const EditForm: React.FC<EditFormProps> = ({ success, record, updateRecord }) =>
         data-testid='title'
         value={editedTitle}
         onChange={(e) => {
-
           setEditedTitle(() => e.target.value)
         }}
       />
@@ -54,7 +53,6 @@ const EditForm: React.FC<EditFormProps> = ({ success, record, updateRecord }) =>
         onChange={(e) => setEditedPublishedDate(e.target.value)}
       />
       <button id='Update Record' data-testid='Update Record'
-
         type="submit">Update Record</button>
     </form>
   );

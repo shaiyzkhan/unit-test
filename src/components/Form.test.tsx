@@ -88,14 +88,12 @@ describe('Interaction Tests', () => {
 });
 
 describe('Modularity Tests', () => {
-  test('Submits form with correct values', async () => {
-
+  test('Display toast after form has been submitted', async () => {
     const mockAddRecord = jest.fn();
     const { getByTestId } =
       render(
         <Form addRecord={mockAddRecord} success={false} />
       );
-
 
     const submitButton = getByTestId('Add Record')
 

@@ -36,7 +36,6 @@ const App: React.FC = () => {
   return (
     <Router>
       <ToastProvider>
-
         <Routes>
           <Route path="/" element={<HomePage addRecord={addRecord} records={records} success={success} editRecord={editRecord} />} />
           {selectedRecord && <Route path="/edit" element={<EditFormPage success={success} record={selectedRecord} updateRecord={updateRecord} />} />}
