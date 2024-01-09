@@ -16,17 +16,18 @@ const Table: React.FC<TableProps> = ({ records, editRecord }) => {
           <th>Title</th>
           <th>Author</th>
           <th>Published Date</th>
-          <th>Edit</th>
+          <th>Created Date</th>
+          <th>Updated Date</th>
         </tr>
       </thead>
       <tbody>
         {records.map((record, index) => (
           <tr key={index}>
-            <td>{record.title}</td>
-            <td>{record.author}</td>
-            <td>{record.published_date}</td>
-            <td>{record.created_date}</td>
-            <td>{record.update_date}</td>
+            <td data-testid={`title-${index}`}>{record.title}</td>
+            <td data-testid={`author-${index}`}>{record.author}</td>
+            <td data-testid={`published_date-${index}`}>{record.published_date}</td>
+            <td data-testid={`created_date-${index}`}>{record.created_date}</td>
+            <td data-testid={`update_date-${index}`}>{record.update_date}</td>
             <td>
               <button
                 data-testid={`Edit-${index}`}

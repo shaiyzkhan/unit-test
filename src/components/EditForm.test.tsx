@@ -77,8 +77,8 @@ describe('EditForm Interaction Tests', () => {
     });
 
     expect(titleInput).toHaveValue(testRecord?.title);
-    expect(getByTestId('author')).toHaveValue(testRecord?.author);
-    expect(getByTestId('published_date')).toHaveValue(testRecord?.published_date);
+    expect(authorInput).toHaveValue(testRecord?.author);
+    expect(pdInput).toHaveValue(testRecord?.published_date);
 
     await act(async () => {
       userEvent.click(submitButton);

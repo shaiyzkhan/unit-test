@@ -14,11 +14,6 @@ const Form: React.FC<FormProps> = ({ addRecord, success }) => {
   const [published_date, setPublishedDate] = useState('');
   const { addToast } = useToasts();
 
-  // useEffect(()=>{
-  //   if(success){
-  //   }
-  // },[success])
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
     addRecord({ title, author, published_date });
@@ -26,7 +21,6 @@ const Form: React.FC<FormProps> = ({ addRecord, success }) => {
     setAuthor('');
     setPublishedDate('');
     addToast('Record added successfully', { appearance: 'success' });
-
   };
 
   return (
