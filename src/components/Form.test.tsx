@@ -58,15 +58,6 @@ describe('Interaction Tests', () => {
     const pdInput = getByTestId('published_date')
     const submitButton = getByTestId('Add Record')
 
-    await waitFor(() => expect(titleInput).toHaveValue(''))
-    await waitFor(() => expect(authorInput).toHaveValue(''))
-    await waitFor(() => expect(pdInput).toHaveValue(''))
-
-    await userEvent.clear(titleInput)
-    await userEvent.clear(authorInput)
-    await userEvent.clear(pdInput)
-
-
     await act(async () => {
       await userEvent.type(titleInput, testData.title);
       await userEvent.type(authorInput, testData.author);

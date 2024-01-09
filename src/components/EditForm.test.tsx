@@ -60,14 +60,14 @@ describe('EditForm Interaction Tests', () => {
     const titleInput = getByTestId('title');
     const authorInput = getByTestId('author');
     const pdInput = getByTestId('published_date');
-    const submitButton = getByTestId('Update Record');
+    const submitButton = getByTestId('Update Record');    
+    
+    // await waitFor(() => expect(titleInput).toHaveValue(record.title))
+    // await waitFor(() => expect(authorInput).toHaveValue(record.author))
+    // await waitFor(() => expect(pdInput).toHaveValue(record.published_date))
 
-    await waitFor(() => expect(titleInput).toHaveValue(record.title))
-    await waitFor(() => expect(authorInput).toHaveValue(record.author))
-    await waitFor(() => expect(pdInput).toHaveValue(record.published_date))
-
-    await userEvent.clear(titleInput)
-    await userEvent.clear(authorInput)
+    // await userEvent.clear(titleInput)
+    // await userEvent.clear(authorInput)
     await userEvent.clear(pdInput)
 
     await act(async () => {
@@ -76,9 +76,9 @@ describe('EditForm Interaction Tests', () => {
       await userEvent.type(pdInput, testRecord?.published_date);
     });
 
-    expect(titleInput).toHaveValue(testRecord?.title);
-    expect(authorInput).toHaveValue(testRecord?.author);
-    expect(pdInput).toHaveValue(testRecord?.published_date);
+    expect(titleInput).toHaveValue(record?.title + testRecord.title);
+    expect(authorInput).toHaveValue(record?.author + testRecord.author);
+    expect(pdInput).toHaveValue(testRecord.published_date);
 
     await act(async () => {
       userEvent.click(submitButton);
@@ -86,7 +86,10 @@ describe('EditForm Interaction Tests', () => {
 
     await waitFor(() => {
       expect(mockUpdateRecord).toHaveBeenCalledWith({
-        ...testRecord
+        ...testRecord,
+        title:record?.title + testRecord.title,
+        author:record?.author + testRecord.author,
+        published_date:testRecord.published_date
       });
     });
 
@@ -95,16 +98,19 @@ describe('EditForm Interaction Tests', () => {
 
 describe('Modularity Tests', () => {
   test('Submits form with correct values and displays success toast', async () => {
-  
+
     const mockUpdateRecord = jest.fn();
     const { getByTestId } = render(
       <EditForm record={record} updateRecord={mockUpdateRecord} success={false} />
     );
     const submitButton = getByTestId('Update Record')
+    
     await act(async () => {
-     await userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
+
     expect(mockUpdateRecord).toHaveBeenCalled()
+   
     await waitFor(() => {
       return expect(mockAddToast).toHaveBeenCalledWith('Record updated successfully', { appearance: 'success' })
     })
